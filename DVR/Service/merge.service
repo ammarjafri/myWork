@@ -1,0 +1,12 @@
+[Unit]
+Description=Merge video
+After=multi-user.target
+
+[Service]
+Type=idle
+Restart=always
+RestartSec=3
+ExecStart=/usr/bin/sudo /usr/bin/python3 /home/pi/DVR/Scripts/video_merge.py
+
+[Install]
+WantedBy=multi-user.target
