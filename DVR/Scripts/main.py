@@ -398,7 +398,7 @@ def rec_UDP():
 
 
 def camSwitchFunc():
-    sUrl = 'http://"+my_https+"/camswitch?hub_id=' + hubid
+    sUrl = 'http://'+my_https+'/camswitch?hub_id=' + hubid
     while True:
         try:
             x = requests.get(sUrl)
@@ -528,8 +528,6 @@ if camSwitch == 1:
 if gpsLog == 1:
     gpsLoggingThread = threading.Thread(target=gpsLoggerFunc)
     gpsLoggingThread.start()
-
-
 
 while True:
     try:
