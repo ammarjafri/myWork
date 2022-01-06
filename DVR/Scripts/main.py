@@ -6,8 +6,7 @@ logging.basicConfig(level=logging.INFO, filename=home_path+"DVR/ELogs/heartbeat.
 my_https = "connect-srvc.monit.tech"
 host = ""
 port,port2,port3 = [5555,5556,5558]
-auth_user = 'admin'
-auth_passwd = 'camosg123'
+auth_user,auth_passwd = ['admin','camosg123']
 cornerCountL = cornerCountR = totalCam = hubid = motionBox = camSwitch = gpsLog = isSeatBelt = isIgnition = 0
 nodeData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 eventState = lastEvent = lat = long = speed = '0'
@@ -25,7 +24,10 @@ def get_value(val):
     val = val + "="
     for x in data_value:
         if val in x:
-            final = x.split('=')[1][:-1]
+            if x[-1]!='\n':
+                final = x.split('=')[1]
+            else:
+                final = x.split('=')[1][:-1]
     return int(final)
 
 
@@ -457,7 +459,7 @@ def gpsLoggerFunc():
                 fileNew = open(home_path+'DVR/gpslogsNew.txt')
                 dataNew = fileNew.read()
                 dataNew = dataNew[:-4]
-                url = 'http://"+my_https+"/api/gpslogger?data=[' + dataNew + '%20]'
+                url = 'http://'+my_https+'/api/gpslogger?data=[' + dataNew + '%20]'
                 try:
                     x = requests.get(url)
                     if (x.status_code == 200):
