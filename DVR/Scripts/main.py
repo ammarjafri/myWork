@@ -5,9 +5,7 @@ home_path = "/home/pi/"
 logging.basicConfig(level=logging.INFO, filename=home_path+"DVR/ELogs/heartbeat.log", format='%(asctime)s - %(message)s', datefmt='%y-%b-%d %H:%M:%S')
 my_https = "connect-srvc.monit.tech"
 host = ""
-port = 5555
-port2 = 5556
-port3 = 5558
+port,port2,port3 = [5555,5556,5558]
 auth_user = 'admin'
 auth_passwd = 'camosg123'
 cornerCountL = cornerCountR = totalCam = hubid = motionBox = camSwitch = gpsLog = isSeatBelt = isIgnition = 0
