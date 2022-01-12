@@ -23,7 +23,7 @@ widthImg,heightImg=dims['480']
 def set_sizes():
     while (True):
         global widthImg,heightImg
-#         a = input("enter size: ")
+        a = input("enter size: ")
         widthImg,heightImg=dims[a]
 #         cap.set(3,widthImg)
 #         cap.set(4,heightImg)

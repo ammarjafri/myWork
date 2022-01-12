@@ -2,43 +2,39 @@ import cv2
 import numpy as np
 import utlis
 
-
-########################################################################
-webCamFeed = True
-#pathImage = "1.jpg"
+dims = {
+    "480":(640,480),
+    "600":(800,600),
+    "768":(1024,768),
+    "720":(1280,720),
+    "960":(1280,960),
+    "1600":(1920,1600),
+    "1080":(1920,1080),
+    }
 pathImage = "/home/pi/Scanner/amm/final_scan.jpeg"
-# cap = cv2.VideoCapture(0)
-#ip = "rtsp://admin:camosg123@192.168.15.90:554/cam/realmonitor?channel=1&subtype=0&unicast=true"
-#ip = "http://192.168.1.50:8081/"
-cap = cv2.VideoCapture(0)
-cap.set(3,1920)
-cap.set(4,1600)
-# heightImg = 1080
-# widthImg  = 1920
-# heightImg = 720
-# widthImg  = 1280
-# heightImg = 480
-# widthImg  = 640
-########################################################################
-i=100
+cap = cv2.VideoCapture(1)
+widthImg,heightImg = dims["1600"] 
+cap.set(3,widthImg)
+cap.set(4,heightImg)
+i=101
 # utlis.initializeTrackbars()
-count=10
 
 while True:
     save = "testing"+str(i)+".jpeg"
     success, img = cap.read()
+    print(img.shape)
 #     img = cv2.imread(pathImage)
-#     img = cv2.resize(img, (widthImg, heightImg)) # RESIZE IMAGE
+    img = cv2.resize(img, dims["720"]) # RESIZE IMAGE
 #     imgBlank = np.zeros((heightImg,widthImg, 3), np.uint8) # CREATE A BLANK IMAGE FOR TESTING DEBUGING IF REQUIRED
     imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # CONVERT IMAGE TO GRAY SCALE
     imgBlur = cv2.GaussianBlur(imgGray, (7, 7), 1) # ADD GAUSSIAN BLUR
     
 #     thres=utlis.valTrackbars() # GET TRACK BAR VALUES FOR THRESHOLDS
 #     imgThreshold = cv2.Canny(imgBlur,thres[0],thres[1]) # APPLY CANNY BLUR
-    imgThreshold = cv2.Canny(imgBlur,20,200) # APPLY CANNY BLUR
-    kernel = np.ones((5, 5))
-    imgDial = cv2.dilate(imgThreshold, kernel, iterations=2) # APPLY DILATION
-    imgThreshold = cv2.erode(imgDial, kernel, iterations=1)  # APPLY EROSION
+    # imgThreshold = cv2.Canny(imgBlur,20,200) # APPLY CANNY BLUR
+    # kernel = np.ones((5, 5))
+    # imgDial = cv2.dilate(imgThreshold, kernel, iterations=2) # APPLY DILATION
+    # imgThreshold = cv2.erode(imgDial, kernel, iterations=1)  # APPLY EROSION
 # 
 #     ## FIND ALL COUNTOURS
 #     imgContours = img.copy() # COPY IMAGE FOR DISPLAY PURPOSES
@@ -84,9 +80,9 @@ while True:
 #     stackedImage = utlis.stackImages(imageArray,0.75,lables)
 #     cv2.imshow("Result",stackedImage)
     output1 = cv2.resize(imgBlur, (640, 480))
-    output2 = cv2.resize(imgThreshold, (640, 480))
+    # output2 = cv2.resize(imgThreshold, (640, 480))
     cv2.imshow("output1",output1)
-    cv2.imshow("output2",output2)
+    # cv2.imshow("output2",output2)
     cv2.imshow("input",img)
     key = cv2.waitKey(1)
     if key == ord('s'):
@@ -96,15 +92,6 @@ while True:
         i+=1
     if key == 27:
         break
-    # SAVE IMAGE WHEN 's' key is pressed
-#     if cv2.waitKey(1) & 0xFF == ord('s'):
-#         cv2.imwrite("/home/pi/Scanned/myImage.jpg",imgWarpColored)
-#         cv2.rectangle(stackedImage, ((int(stackedImage.shape[1] / 2) - 230), int(stackedImage.shape[0] / 2) + 50),
-#                       (1100, 350), (0, 255, 0), cv2.FILLED)
-#         cv2.putText(stackedImage, "Scan Saved", (int(stackedImage.shape[1] / 2) - 200, int(stackedImage.shape[0] / 2)),
-#                     cv2.FONT_HERSHEY_DUPLEX, 3, (0, 0, 255), 5, cv2.LINE_AA)
-#         cv2.imshow('Result', stackedImage)
-#         cv2.waitKey(300)
-#         count += 1
-#cap.release()
+
+cap.release()
 cv2.destroyAllWindows()
