@@ -24,7 +24,7 @@ dims = {
     }
 
 save_path = home_path+"imgs/"
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 widthImg,heightImg = dims["1600"] 
 cap.set(3,widthImg)
 cap.set(4,heightImg)
