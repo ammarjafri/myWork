@@ -38,6 +38,21 @@ def stackImages(imgArray,scale,lables=[]):
                 cv2.putText(ver,lables[d][c],(eachImgWidth*c+10,eachImgHeight*d+20),cv2.FONT_HERSHEY_COMPLEX,0.7,(255,0,255),2)
     return ver
 
+def thresf(imgBlur):
+    imgThreshold = cv2.Canny(imgBlur,20,200) # APPLY CANNY BLUR
+    kernel = np.ones((5, 5))
+    imgDial = cv2.dilate(imgThreshold, kernel, iterations=2) # APPLY DILATION
+    imgThreshold = cv2.erode(imgDial, kernel, iterations=1)  # APPLY EROSION
+    return imgThreshold
+
+def is_cont(img):
+    contours, hierarchy = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) # FIND ALL CONTOURS
+    biggest, maxArea = biggestContour(contours) # FIND THE BIGGEST CONTOUR
+    if biggest.size != 0:
+        return True
+    else:
+        return False
+
 def reorder(myPoints):
 
     myPoints = myPoints.reshape((4, 2))
