@@ -79,12 +79,15 @@ def nothing(x):
 def initializeTrackbars(intialTracbarVals=0):
     cv2.namedWindow("Trackbars")
     cv2.resizeWindow("Trackbars", 360, 240)
-    cv2.createTrackbar("Threshold1", "Trackbars", 200,255, nothing)
-    cv2.createTrackbar("Threshold2", "Trackbars", 200, 255, nothing)
-
+    cv2.createTrackbar("Threshold1", "Trackbars", 1,15, nothing)
+    # cv2.createTrackbar("Threshold2", "Trackbars", 1, 15, nothing)
+    cv2.createTrackbar("itreation1", "Trackbars", 1, 15, nothing)
+    cv2.createTrackbar("itreation2", "Trackbars", 1, 15, nothing)
 
 def valTrackbars():
     Threshold1 = cv2.getTrackbarPos("Threshold1", "Trackbars")
-    Threshold2 = cv2.getTrackbarPos("Threshold2", "Trackbars")
-    src = Threshold1,Threshold2
+    # Threshold2 = cv2.getTrackbarPos("Threshold2", "Trackbars")
+    Threshold3 = cv2.getTrackbarPos("itreation1", "Trackbars")
+    Threshold4 = cv2.getTrackbarPos("itreation2", "Trackbars")
+    src = Threshold1,Threshold3,Threshold4
     return src
