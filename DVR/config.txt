@@ -1,7 +1,0 @@
-cams=2
-hubid=29
-motion=1
-camswitch=0
-gpslog=1
-seatbelt=0
-ignition=0
